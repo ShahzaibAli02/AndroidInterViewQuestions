@@ -453,6 +453,38 @@ fun mergeFlows(): Flow<Int> = flow {
 
 These builders provide various ways to create and work with flows in Kotlin, allowing you to handle different asynchronous and concurrent scenarios effectively.
 
+# `flowOn` and `Dispatchers` in Kotlin Flow
+
+In Kotlin Flow, `flowOn` and `Dispatchers` are used to control the context in which flow operations run. They help manage the threading and execution of coroutines.
+
+## `flowOn`
+
+The `flowOn` operator changes the context in which the upstream flow is executed. It allows you to specify a dispatcher for the `Flow`'s upstream operations.
+
+**Usage:**
+
+- `flowOn` is used to shift the context for the upstream operations (i.e., the part of the flow before the `flowOn` operator).
+- This operator does not affect the context of the downstream operations.
+
+**Example:**
+
+```kotlin
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+
+fun performWork(): Flow<Int> = flow {
+    emit(1) // Emitting value
+    delay(1000) // Simulate work
+    emit(2)
+}
+.flowOn(Dispatchers.IO) // Change context for the upstream operations
+
+fun main() = runBlocking {
+    performWork()
+        .collect { value -> println("Received: $value") }
+}
+
+
 ### Operator
 
 Operators transform or manipulate the emitted values from a `Flow`.
