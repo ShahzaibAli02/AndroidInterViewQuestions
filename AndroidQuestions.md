@@ -1,6 +1,3 @@
-Here's a detailed explanation of the Android interview questions you listed, formatted as a Markdown document:
-
-```markdown
 # Android Interview Questions and Answers
 
 ## Base
